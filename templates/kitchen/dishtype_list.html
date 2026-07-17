@@ -2,20 +2,34 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
   <title>Dish Types</title>
 </head>
 <body>
   <h1>Dish Type List</h1>
+
+  <p>
+    <a href="{% url 'kitchen:dish-type-create' %}">
+      Create dish type
+    </a>
+  </p>
 
   {% if dishtype_list %}
     <ul>
       {% for dish_type in dishtype_list %}
         <li>
           {{ dish_type.name }}
+
+          <a
+            href="{% url 'kitchen:dish-type-update' pk=dish_type.pk %}"
+          >
+            Update
+          </a>
+
+          <a
+            href="{% url 'kitchen:dish-type-delete' pk=dish_type.pk %}"
+          >
+            Delete
+          </a>
         </li>
       {% endfor %}
     </ul>

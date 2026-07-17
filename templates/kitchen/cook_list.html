@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cooks</title>
+</head>
+<body>
+
+<h1>Cook List</h1>
+
+<ul>
+    {% for cook in cook_list %}
+        <li>
+            {{ cook.username }}
+            ({{ cook.first_name }} {{ cook.last_name }})
+        </li>
+    {% empty %}
+        <li>No cooks found.</li>
+    {% endfor %}
+</ul>
+
+</body>
+</html>

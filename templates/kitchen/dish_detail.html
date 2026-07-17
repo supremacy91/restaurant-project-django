@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ dish.name }}</title>
+</head>
+<body>
+  <h1>{{ dish.name }}</h1>
+
+  <p>
+    <a href="{% url 'kitchen:dish-update' pk=dish.pk %}">
+      Update
+    </a>
+
+    <a href="{% url 'kitchen:dish-delete' pk=dish.pk %}">
+      Delete
+    </a>
+  </p>
+
+  <p>
+    <strong>Type:</strong>
+    {{ dish.dish_type.name }}
+  </p>
+
+  <p>
+    <strong>Description:</strong>
+
+    {% if dish.description %}
+      {{ dish.description }}
+    {% else %}
+      No description.
+    {% endif %}
+  </p>
+
+  <p>
+    <strong>Price:</strong>
+    ${{ dish.price }}
+  </p>
+
+  <h2>Cooks</h2>
+
+  <ul>
+    {% for cook in dish.cooks.all %}
+      <li>
+        {{ cook.username }}
+      </li>
+    {% empty %}
+      <li>No cooks assigned.</li>
+    {% endfor %}
+  </ul>
+
+  <p>
+    <a href="{% url 'kitchen:dish-list' %}">
+      Back to dish list
+    </a>
+  </p>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dish type form</title>
+</head>
+<body>
+  <h1>Dish type form</h1>
+
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <input type="submit" value="Save">
+  </form>
+
+  <a href="{% url 'kitchen:dish-type-list' %}">
+    Cancel
+  </a>
+</body>
+</html>

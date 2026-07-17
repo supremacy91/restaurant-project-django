@@ -2,20 +2,25 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
   <title>Dishes</title>
 </head>
 <body>
   <h1>Dish List</h1>
 
+  <p>
+    <a href="{% url 'kitchen:dish-create' %}">
+      Create dish
+    </a>
+  </p>
+
   {% if dish_list %}
     <ul>
       {% for dish in dish_list %}
         <li>
-          <strong>{{ dish.name }}</strong>
+          <a href="{% url 'kitchen:dish-detail' pk=dish.pk %}">
+            {{ dish.name }}
+          </a>
+
           — {{ dish.dish_type.name }}
           — ${{ dish.price }}
         </li>
