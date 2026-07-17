@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+  <title>Dishes</title>
+</head>
+<body>
+  <h1>Dish List</h1>
+
+  {% if dish_list %}
+    <ul>
+      {% for dish in dish_list %}
+        <li>
+          <strong>{{ dish.name }}</strong>
+          — {{ dish.dish_type.name }}
+          — ${{ dish.price }}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>There are no dishes.</p>
+  {% endif %}
+</body>
+</html>
