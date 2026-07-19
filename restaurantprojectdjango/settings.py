@@ -119,3 +119,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 AUTH_USER_MODEL = "kitchen.Cook"
+
+LOGIN_URL = "login"
+LOGIN_REDIRECT_URL = "kitchen:dish-list"
+LOGOUT_REDIRECT_URL = "login"
