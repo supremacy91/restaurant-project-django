@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Cook form</title>
+</head>
+<body>
+  {% if object %}
+    <h1>Update cook</h1>
+  {% else %}
+    <h1>Create cook</h1>
+  {% endif %}
+
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <button type="submit">
+      Save
+    </button>
+  </form>
+
+  {% if object %}
+    <a href="{% url 'kitchen:cook-detail' pk=object.pk %}">
+      Cancel
+    </a>
+  {% else %}
+    <a href="{% url 'kitchen:cook-list' %}">
+      Cancel
+    </a>
+  {% endif %}
+</body>
+</html>

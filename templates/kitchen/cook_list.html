@@ -1,23 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Cooks</title>
+  <meta charset="UTF-8">
+  <title>Cooks</title>
 </head>
 <body>
+  <h1>Cook List</h1>
 
-<h1>Cook List</h1>
+  <p>
+    <a href="{% url 'kitchen:cook-create' %}">
+      Create cook
+    </a>
+  </p>
 
-<ul>
-    {% for cook in cook_list %}
+  {% if cook_list %}
+    <ul>
+      {% for cook in cook_list %}
         <li>
+          <a href="{% url 'kitchen:cook-detail' pk=cook.pk %}">
             {{ cook.username }}
-            ({{ cook.first_name }} {{ cook.last_name }})
-        </li>
-    {% empty %}
-        <li>No cooks found.</li>
-    {% endfor %}
-</ul>
+          </a>
 
+          {% if cook.first_name or cook.last_name %}
+            — {{ cook.first_name }} {{ cook.last_name }}
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>There are no cooks.</p>
+  {% endif %}
 </body>
 </html>

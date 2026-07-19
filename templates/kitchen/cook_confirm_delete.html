@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Delete cook</title>
+</head>
+<body>
+  <h1>Delete cook</h1>
+
+  <p>
+    Are you sure you want to delete
+    <strong>{{ cook.username }}</strong>?
+  </p>
+
+  <form method="post">
+    {% csrf_token %}
+
+    <button type="submit">
+      Yes, delete
+    </button>
+  </form>
+
+  <a href="{% url 'kitchen:cook-detail' pk=cook.pk %}">
+    Cancel
+  </a>
+</body>
+</html>

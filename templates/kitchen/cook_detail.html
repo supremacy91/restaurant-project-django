@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ cook.username }}</title>
+</head>
+<body>
+  <h1>{{ cook.username }}</h1>
+
+  <p>
+    <a href="{% url 'kitchen:cook-update' pk=cook.pk %}">
+      Update
+    </a>
+
+    <a href="{% url 'kitchen:cook-delete' pk=cook.pk %}">
+      Delete
+    </a>
+  </p>
+
+  <p>
+    <strong>First name:</strong>
+
+    {% if cook.first_name %}
+      {{ cook.first_name }}
+    {% else %}
+      Not specified
+    {% endif %}
+  </p>
+
+  <p>
+    <strong>Last name:</strong>
+
+    {% if cook.last_name %}
+      {{ cook.last_name }}
+    {% else %}
+      Not specified
+    {% endif %}
+  </p>
+
+  <p>
+    <strong>Email:</strong>
+
+    {% if cook.email %}
+      {{ cook.email }}
+    {% else %}
+      Not specified
+    {% endif %}
+  </p>
+
+  <p>
+    <strong>Years of experience:</strong>
+    {{ cook.years_of_experience }}
+  </p>
+
+  <h2>Dishes</h2>
+
+  <ul>
+    {% for dish in cook.dishes.all %}
+      <li>
+        <a href="{% url 'kitchen:dish-detail' pk=dish.pk %}">
+          {{ dish.name }}
+        </a>
+      </li>
+    {% empty %}
+      <li>This cook has no dishes.</li>
+    {% endfor %}
+  </ul>
+
+  <p>
+    <a href="{% url 'kitchen:cook-list' %}">
+      Back to cook list
+    </a>
+  </p>
+</body>
+</html>
