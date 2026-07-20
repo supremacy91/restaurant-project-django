@@ -7,6 +7,25 @@
 {% block content %}
   <h1>Dish Type List</h1>
 
+  <form method="get">
+    {{ search_form }}
+
+    <button type="submit">
+      Search
+    </button>
+  </form>
+
+  {% if request.GET.query %}
+    <p>
+      Search results for:
+      <strong>{{ request.GET.query }}</strong>
+    </p>
+
+    <a href="{% url 'kitchen:dish-type-list' %}">
+      Clear search
+    </a>
+  {% endif %}
+
   <p>
     <a href="{% url 'kitchen:dish-type-create' %}">
       Create dish type
@@ -19,15 +38,11 @@
         <li>
           {{ dish_type.name }}
 
-          <a
-              href="{% url 'kitchen:dish-type-update' pk=dish_type.pk %}"
-          >
+          <a href="{% url 'kitchen:dish-type-update' pk=dish_type.pk %}">
             Update
           </a>
 
-          <a
-              href="{% url 'kitchen:dish-type-delete' pk=dish_type.pk %}"
-          >
+          <a href="{% url 'kitchen:dish-type-delete' pk=dish_type.pk %}">
             Delete
           </a>
         </li>
@@ -35,7 +50,9 @@
     </ul>
   {% else %}
     <p>
-      There are no dish types.
+      No dish types found.
     </p>
   {% endif %}
+
+  {% include "includes/pagination.html" %}
 {% endblock %}
