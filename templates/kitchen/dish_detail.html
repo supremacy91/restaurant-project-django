@@ -1,11 +1,53 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>{{ dish.name }}</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block title %}
+  {{ dish.name }}
+{% endblock %}
+
+{% block content %}
   <h1>{{ dish.name }}</h1>
+
+  <p>
+    <strong>Dish type:</strong>
+    {{ dish.dish_type.name }}
+  </p>
+
+  <p>
+    <strong>Price:</strong>
+    ${{ dish.price }}
+  </p>
+
+  <p>
+    <strong>Description:</strong>
+  </p>
+
+  {% if dish.description %}
+    <p>
+      {{ dish.description }}
+    </p>
+  {% else %}
+    <p>
+      No description.
+    </p>
+  {% endif %}
+
+  <h2>Cooks</h2>
+
+  {% if dish.cooks.all %}
+    <ul>
+      {% for cook in dish.cooks.all %}
+        <li>
+          <a href="{% url 'kitchen:cook-detail' pk=cook.pk %}">
+            {{ cook.username }}
+          </a>
+        </li>
+      {% empty %}
+        <li>
+          No cooks are assigned to this dish.
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
 
   <p>
     <a href="{% url 'kitchen:dish-update' pk=dish.pk %}">
@@ -18,41 +60,8 @@
   </p>
 
   <p>
-    <strong>Type:</strong>
-    {{ dish.dish_type.name }}
-  </p>
-
-  <p>
-    <strong>Description:</strong>
-
-    {% if dish.description %}
-      {{ dish.description }}
-    {% else %}
-      No description.
-    {% endif %}
-  </p>
-
-  <p>
-    <strong>Price:</strong>
-    ${{ dish.price }}
-  </p>
-
-  <h2>Cooks</h2>
-
-  <ul>
-    {% for cook in dish.cooks.all %}
-      <li>
-        {{ cook.username }}
-      </li>
-    {% empty %}
-      <li>No cooks assigned.</li>
-    {% endfor %}
-  </ul>
-
-  <p>
     <a href="{% url 'kitchen:dish-list' %}">
       Back to dish list
     </a>
   </p>
-</body>
-</html>
+{% endblock %}

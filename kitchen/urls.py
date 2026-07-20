@@ -21,6 +21,11 @@ app_name = "kitchen"
 
 urlpatterns = [
     path(
+        "",
+        DishListView.as_view(),
+        name="index",
+    ),
+    path(
         "dish-types/",
         DishTypeListView.as_view(),
         name="dish-type-list",

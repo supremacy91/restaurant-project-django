@@ -1,21 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>{{ cook.username }}</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block title %}
+  {{ cook.username }}
+{% endblock %}
+
+{% block content %}
   <h1>{{ cook.username }}</h1>
-
-  <p>
-    <a href="{% url 'kitchen:cook-update' pk=cook.pk %}">
-      Update
-    </a>
-
-    <a href="{% url 'kitchen:cook-delete' pk=cook.pk %}">
-      Delete
-    </a>
-  </p>
 
   <p>
     <strong>First name:</strong>
@@ -62,14 +52,25 @@
         </a>
       </li>
     {% empty %}
-      <li>This cook has no dishes.</li>
+      <li>
+        This cook is not assigned to any dishes.
+      </li>
     {% endfor %}
   </ul>
+
+  <p>
+    <a href="{% url 'kitchen:cook-update' pk=cook.pk %}">
+      Update
+    </a>
+
+    <a href="{% url 'kitchen:cook-delete' pk=cook.pk %}">
+      Delete
+    </a>
+  </p>
 
   <p>
     <a href="{% url 'kitchen:cook-list' %}">
       Back to cook list
     </a>
   </p>
-</body>
-</html>
+{% endblock %}

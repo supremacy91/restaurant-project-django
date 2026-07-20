@@ -1,18 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Cook form</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block title %}
   {% if object %}
-    <h1>Update cook</h1>
+    Update cook
   {% else %}
-    <h1>Create cook</h1>
+    Create cook
   {% endif %}
+{% endblock %}
+
+{% block content %}
+  <h1>
+    {% if object %}
+      Update cook
+    {% else %}
+      Create cook
+    {% endif %}
+  </h1>
 
   <form method="post">
     {% csrf_token %}
+
     {{ form.as_p }}
 
     <button type="submit">
@@ -20,14 +27,15 @@
     </button>
   </form>
 
-  {% if object %}
-    <a href="{% url 'kitchen:cook-detail' pk=object.pk %}">
-      Cancel
-    </a>
-  {% else %}
-    <a href="{% url 'kitchen:cook-list' %}">
-      Cancel
-    </a>
-  {% endif %}
-</body>
-</html>
+  <p>
+    {% if object %}
+      <a href="{% url 'kitchen:cook-detail' pk=object.pk %}">
+        Cancel
+      </a>
+    {% else %}
+      <a href="{% url 'kitchen:cook-list' %}">
+        Cancel
+      </a>
+    {% endif %}
+  </p>
+{% endblock %}

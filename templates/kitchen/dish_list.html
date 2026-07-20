@@ -17,7 +17,9 @@
     <ul>
       {% for dish in dish_list %}
         <li>
-          <a href="{% url 'kitchen:dish-detail' pk=dish.pk %}">
+          <a
+              href="{% url 'kitchen:dish-detail' pk=dish.pk %}"
+          >
             {{ dish.name }}
           </a>
 
@@ -27,6 +29,8 @@
       {% endfor %}
     </ul>
   {% else %}
-    <p>There are no dishes.</p>
+    <p>
+      There are no dishes.
+    </p>
   {% endif %}
 {% endblock %}

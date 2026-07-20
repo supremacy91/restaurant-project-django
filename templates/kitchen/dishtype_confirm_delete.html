@@ -1,28 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Delete dish type</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block title %}
+  Delete dish type
+{% endblock %}
+
+{% block content %}
   <h1>Delete dish type</h1>
 
   <p>
     Are you sure you want to delete
-    <strong>{{ dishtype }}</strong>?
-  </p>
-
-  <p>
-    All dishes connected to this type will also be deleted.
+    <strong>{{ object.name }}</strong>?
   </p>
 
   <form method="post">
     {% csrf_token %}
-    <input type="submit" value="Yes, delete">
+
+    <button type="submit">
+      Yes, delete
+    </button>
   </form>
 
-  <a href="{% url 'kitchen:dish-type-list' %}">
-    Cancel
-  </a>
-</body>
-</html>
+  <p>
+    <a href="{% url 'kitchen:dish-type-list' %}">
+      Cancel
+    </a>
+  </p>
+{% endblock %}

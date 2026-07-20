@@ -1,10 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Cooks</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block title %}
+  Cooks
+{% endblock %}
+
+{% block content %}
   <h1>Cook List</h1>
 
   <p>
@@ -21,14 +21,15 @@
             {{ cook.username }}
           </a>
 
-          {% if cook.first_name or cook.last_name %}
-            — {{ cook.first_name }} {{ cook.last_name }}
-          {% endif %}
+          — {{ cook.years_of_experience }}
+          year{{ cook.years_of_experience|pluralize }}
+          of experience
         </li>
       {% endfor %}
     </ul>
   {% else %}
-    <p>There are no cooks.</p>
+    <p>
+      There are no cooks.
+    </p>
   {% endif %}
-</body>
-</html>
+{% endblock %}

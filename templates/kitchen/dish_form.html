@@ -1,21 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Dish form</title>
-</head>
-<body>
-  <h1>Dish form</h1>
+{% extends "base.html" %}
+
+{% block title %}
+  {% if object %}
+    Update dish
+  {% else %}
+    Create dish
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  <h1>
+    {% if object %}
+      Update dish
+    {% else %}
+      Create dish
+    {% endif %}
+  </h1>
 
   <form method="post">
     {% csrf_token %}
+
     {{ form.as_p }}
 
-    <input type="submit" value="Save">
+    <button type="submit">
+      Save
+    </button>
   </form>
 
-  <a href="{% url 'kitchen:dish-list' %}">
-    Cancel
-  </a>
-</body>
-</html>
+  <p>
+    {% if object %}
+      <a href="{% url 'kitchen:dish-detail' pk=object.pk %}">
+        Cancel
+      </a>
+    {% else %}
+      <a href="{% url 'kitchen:dish-list' %}">
+        Cancel
+      </a>
+    {% endif %}
+  </p>
+{% endblock %}
