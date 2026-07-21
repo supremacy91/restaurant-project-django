@@ -1,0 +1,100 @@
+{% load static %}
+
+<aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3" id="sidenav-main">
+  <div class="sidenav-header">
+    <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
+
+    <a class="navbar-brand m-0" href="{% url 'kitchen:index' %}">
+      <img src="{% static 'icons/logo.svg' %}" class="navbar-brand-img h-100" alt="KitchenHub logo">
+      <span class="ms-1 font-weight-bold">KitchenHub</span>
+    </a>
+  </div>
+
+  <hr class="horizontal dark mt-0">
+
+  <div class="collapse navbar-collapse w-auto" id="sidenav-collapse-main">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link {% if request.resolver_match.url_name == 'index' %}active{% endif %}" href="{% url 'kitchen:index' %}">
+          <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+            <img src="{% static 'icons/home.svg' %}" width="18" height="18" alt="">
+          </div>
+          <span class="nav-link-text ms-1">Dashboard</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link {% if 'dish' in request.resolver_match.url_name and 'dish-type' not in request.resolver_match.url_name %}active{% endif %}" href="{% url 'kitchen:dish-list' %}">
+          <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+            <img src="{% static 'icons/dish.svg' %}" width="18" height="18" alt="">
+          </div>
+          <span class="nav-link-text ms-1">Dishes</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link {% if 'dish-type' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'kitchen:dish-type-list' %}">
+          <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+            <img src="{% static 'icons/dish-type.svg' %}" width="18" height="18" alt="">
+          </div>
+          <span class="nav-link-text ms-1">Dish Types</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link {% if 'cook' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'kitchen:cook-list' %}">
+          <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+            <img src="{% static 'icons/cook.svg' %}" width="18" height="18" alt="">
+          </div>
+          <span class="nav-link-text ms-1">Cooks</span>
+        </a>
+      </li>
+
+      {% if user.is_authenticated %}
+        <li class="nav-item mt-3">
+          <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account pages</h6>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'kitchen:cook-detail' pk=user.pk %}">
+            <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+              <img src="{% static 'icons/profile.svg' %}" width="18" height="18" alt="">
+            </div>
+            <span class="nav-link-text ms-1">My Profile</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+
+            <button type="submit" class="nav-link border-0 bg-transparent w-100">
+              <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                <img src="{% static 'icons/logout.svg' %}" width="18" height="18" alt="">
+              </div>
+              <span class="nav-link-text ms-1">Log Out</span>
+            </button>
+          </form>
+        </li>
+      {% endif %}
+    </ul>
+  </div>
+
+  <div class="sidenav-footer mx-3">
+    <div class="card card-background shadow-none card-background-mask-secondary" id="sidenavCard">
+      <div class="full-background" style="background-image: url('{% static 'soft-ui/img/curved-images/white-curved.jpg' %}')"></div>
+
+      <div class="card-body text-start p-3 w-100">
+        <div class="icon icon-shape icon-sm bg-white shadow text-center mb-3 d-flex align-items-center justify-content-center border-radius-md">
+          <img src="{% static 'icons/logo.svg' %}" width="22" height="22" alt="">
+        </div>
+
+        <div class="docs-info">
+          <h6 class="text-white up mb-0">KitchenHub</h6>
+          <p class="text-xs font-weight-bold">Restaurant management</p>
+          <a href="{% url 'kitchen:index' %}" class="btn btn-white btn-sm w-100 mb-0">Dashboard</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</aside>

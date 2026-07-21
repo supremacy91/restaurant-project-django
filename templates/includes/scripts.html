@@ -1,0 +1,27 @@
+{% load static %}
+
+<script src="{% static 'soft-ui/js/core/popper.min.js' %}"></script>
+<script src="{% static 'soft-ui/js/core/bootstrap.min.js' %}"></script>
+
+<script
+    src="{% static 'soft-ui/js/plugins/perfect-scrollbar.min.js' %}"
+></script>
+
+<script
+    src="{% static 'soft-ui/js/plugins/smooth-scrollbar.min.js' %}"
+></script>
+
+<script>
+  const isWindows = navigator.platform.indexOf("Win") > -1;
+  const sidenavScrollbar = document.querySelector("#sidenav-scrollbar");
+
+  if (isWindows && sidenavScrollbar) {
+    Scrollbar.init(sidenavScrollbar, {
+      damping: "0.5"
+    });
+  }
+</script>
+
+<script
+    src="{% static 'soft-ui/js/soft-ui-dashboard.min.js' %}"
+></script>
