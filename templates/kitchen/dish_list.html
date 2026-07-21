@@ -7,24 +7,7 @@
 {% block content %}
   <h1>Dish List</h1>
 
-  <form method="get">
-    {{ search_form }}
-
-    <button type="submit">
-      Search
-    </button>
-  </form>
-
-  {% if request.GET.query %}
-    <p>
-      Search results for:
-      <strong>{{ request.GET.query }}</strong>
-    </p>
-
-    <a href="{% url 'kitchen:dish-list' %}">
-      Clear search
-    </a>
-  {% endif %}
+  {% include "includes/search_form.html" %}
 
   <p>
     <a href="{% url 'kitchen:dish-create' %}">
@@ -46,9 +29,7 @@
       {% endfor %}
     </ul>
   {% else %}
-    <p>
-      No dishes found.
-    </p>
+    <p>No dishes found.</p>
   {% endif %}
 
   {% include "includes/pagination.html" %}

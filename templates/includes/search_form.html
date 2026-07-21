@@ -1,0 +1,18 @@
+<form method="get">
+  {{ search_form.query }}
+
+  <button type="submit">
+    Search
+  </button>
+</form>
+
+{% if request.GET.query %}
+  <p>
+    Search results for:
+    <strong>{{ request.GET.query }}</strong>
+  </p>
+
+  <a href="{{ request.path }}">
+    Clear search
+  </a>
+{% endif %}
