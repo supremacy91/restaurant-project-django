@@ -5,23 +5,31 @@
 {% endblock %}
 
 {% block content %}
-  <h1>Login</h1>
+  {% if user.is_authenticated %}
 
-  {% if form.errors %}
-    <p>Username or password is incorrect.</p>
-  {% endif %}
+    <h2>You are already logged in as {{ user.username }}</h2>
 
-  <form method="post">
-    {% csrf_token %}
+  {% else %}
 
-    {{ form.as_p }}
+    <h1>Login</h1>
 
-    <button type="submit">
-      Login
-    </button>
-
-    {% if next %}
-      <input type="hidden" name="next" value="{{ next }}">
+    {% if form.errors %}
+      <p>Username or password is incorrect.</p>
     {% endif %}
-  </form>
+
+    <form method="post">
+      {% csrf_token %}
+
+      {{ form.as_p }}
+
+      <button type="submit">
+        Login
+      </button>
+
+      {% if next %}
+        <input type="hidden" name="next" value="{{ next }}">
+      {% endif %}
+    </form>
+
+  {% endif %}
 {% endblock %}
