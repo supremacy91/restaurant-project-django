@@ -16,6 +16,12 @@ class DishType(models.Model):
 class Cook(AbstractUser):
     years_of_experience = models.PositiveIntegerField(default=0)
 
+    photo = models.ImageField(
+        upload_to="cooks/",
+        blank=True,
+        null=True,
+    )
+
     class Meta:
         ordering = ["username"]
 

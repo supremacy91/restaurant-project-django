@@ -44,7 +44,19 @@
                       <td>
                         <div class="d-flex px-2 py-1">
                           <div>
-                            <img src="{% static 'icons/cook.svg' %}" class="avatar avatar-sm me-3" alt="Cook">
+                            {% if cook.photo %}
+                              <img
+                                src="{{ cook.photo.url }}"
+                                class="avatar avatar-sm me-3"
+                                alt="{{ cook.username }}"
+                              >
+                            {% else %}
+                              <img
+                                src="{% static 'icons/cook.svg' %}"
+                                class="avatar avatar-sm me-3"
+                                alt="Cook"
+                              >
+                            {% endif %}
                           </div>
 
                           <div class="d-flex flex-column justify-content-center">

@@ -71,6 +71,7 @@ class CookCreationForm(UserCreationForm):
             "last_name",
             "email",
             "years_of_experience",
+            "photo",
         )
         widgets = {
             "username": forms.TextInput(
@@ -132,6 +133,7 @@ class CookUpdateForm(forms.ModelForm):
             "last_name",
             "email",
             "years_of_experience",
+            "photo",
         )
         widgets = {
             "username": forms.TextInput(

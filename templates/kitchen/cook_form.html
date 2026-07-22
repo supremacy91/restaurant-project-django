@@ -17,7 +17,19 @@
           <div class="card-header pb-0">
             <div class="d-flex align-items-center">
               <div>
-                <img src="{% static 'icons/cook.svg' %}" class="avatar avatar-sm me-3" alt="Cook">
+                {% if object and object.photo %}
+                  <img
+                    src="{{ object.photo.url }}"
+                    class="avatar avatar-sm me-3"
+                    alt="{{ object.username }}"
+                  >
+                {% else %}
+                  <img
+                    src="{% static 'icons/cook.svg' %}"
+                    class="avatar avatar-sm me-3"
+                    alt="Cook"
+                  >
+                {% endif %}
               </div>
 
               <div>
@@ -41,7 +53,11 @@
           </div>
 
           <div class="card-body">
-            <form method="post" novalidate>
+            <form
+              method="post"
+              enctype="multipart/form-data"
+              novalidate
+            >
               {% csrf_token %}
 
               {% if form.non_field_errors %}
@@ -53,7 +69,10 @@
               {% endif %}
 
               <div class="mb-3">
-                <label for="{{ form.username.id_for_label }}" class="form-label">
+                <label
+                  for="{{ form.username.id_for_label }}"
+                  class="form-label"
+                >
                   Username
                 </label>
 
@@ -66,67 +85,157 @@
                 {% endif %}
 
                 {% for error in form.username.errors %}
-                  <p class="text-danger text-xs mt-1 mb-0">{{ error }}</p>
+                  <p class="text-danger text-xs mt-1 mb-0">
+                    {{ error }}
+                  </p>
                 {% endfor %}
               </div>
 
               <div class="row">
                 <div class="col-md-6">
                   <div class="mb-3">
-                    <label for="{{ form.first_name.id_for_label }}" class="form-label">
+                    <label
+                      for="{{ form.first_name.id_for_label }}"
+                      class="form-label"
+                    >
                       First Name
                     </label>
 
                     {{ form.first_name }}
 
                     {% for error in form.first_name.errors %}
-                      <p class="text-danger text-xs mt-1 mb-0">{{ error }}</p>
+                      <p class="text-danger text-xs mt-1 mb-0">
+                        {{ error }}
+                      </p>
                     {% endfor %}
                   </div>
                 </div>
 
                 <div class="col-md-6">
                   <div class="mb-3">
-                    <label for="{{ form.last_name.id_for_label }}" class="form-label">
+                    <label
+                      for="{{ form.last_name.id_for_label }}"
+                      class="form-label"
+                    >
                       Last Name
                     </label>
 
                     {{ form.last_name }}
 
                     {% for error in form.last_name.errors %}
-                      <p class="text-danger text-xs mt-1 mb-0">{{ error }}</p>
+                      <p class="text-danger text-xs mt-1 mb-0">
+                        {{ error }}
+                      </p>
                     {% endfor %}
                   </div>
                 </div>
               </div>
 
               <div class="mb-3">
-                <label for="{{ form.email.id_for_label }}" class="form-label">
+                <label
+                  for="{{ form.email.id_for_label }}"
+                  class="form-label"
+                >
                   Email
                 </label>
 
                 {{ form.email }}
 
                 {% for error in form.email.errors %}
-                  <p class="text-danger text-xs mt-1 mb-0">{{ error }}</p>
+                  <p class="text-danger text-xs mt-1 mb-0">
+                    {{ error }}
+                  </p>
                 {% endfor %}
               </div>
 
-              <div class="mb-4">
-                <label for="{{ form.years_of_experience.id_for_label }}" class="form-label">
+              <div class="mb-3">
+                <label
+                  for="{{ form.years_of_experience.id_for_label }}"
+                  class="form-label"
+                >
                   Years of Experience
                 </label>
 
                 {{ form.years_of_experience }}
 
                 {% for error in form.years_of_experience.errors %}
-                  <p class="text-danger text-xs mt-1 mb-0">{{ error }}</p>
+                  <p class="text-danger text-xs mt-1 mb-0">
+                    {{ error }}
+                  </p>
+                {% endfor %}
+              </div>
+
+              <div class="mb-4">
+                <label
+                  for="{{ form.photo.id_for_label }}"
+                  class="form-label"
+                >
+                  Cook Photo
+                </label>
+
+                {% if object and object.photo %}
+                  <div class="d-flex align-items-center mb-3">
+                    <img
+                      src="{{ object.photo.url }}"
+                      class="avatar avatar-xl me-3"
+                      alt="{{ object.username }}"
+                    >
+
+                    <div>
+                      <p class="text-sm font-weight-bold mb-1">
+                        Current photo
+                      </p>
+
+                      <p class="text-xs text-secondary mb-0">
+                        Select another image below to replace it.
+                      </p>
+                    </div>
+                  </div>
+                {% endif %}
+
+                <input
+                  type="file"
+                  name="photo"
+                  id="{{ form.photo.id_for_label }}"
+                  class="form-control"
+                  accept="image/jpeg,image/png,image/webp"
+                >
+
+                <p class="text-xs text-secondary mt-2 mb-0">
+                  Supported formats: JPG, PNG and WebP.
+                </p>
+
+                {% if object and object.photo %}
+                  <div class="form-check form-switch mt-3">
+                    <input
+                      type="checkbox"
+                      name="photo-clear"
+                      id="photo-clear_id"
+                      class="form-check-input"
+                    >
+
+                    <label
+                      for="photo-clear_id"
+                      class="form-check-label text-sm"
+                    >
+                      Remove current photo
+                    </label>
+                  </div>
+                {% endif %}
+
+                {% for error in form.photo.errors %}
+                  <p class="text-danger text-xs mt-1 mb-0">
+                    {{ error }}
+                  </p>
                 {% endfor %}
               </div>
 
               {% if form.password1 %}
                 <div class="mb-3">
-                  <label for="{{ form.password1.id_for_label }}" class="form-label">
+                  <label
+                    for="{{ form.password1.id_for_label }}"
+                    class="form-label"
+                  >
                     Password
                   </label>
 
@@ -139,14 +248,19 @@
                   {% endif %}
 
                   {% for error in form.password1.errors %}
-                    <p class="text-danger text-xs mt-1 mb-0">{{ error }}</p>
+                    <p class="text-danger text-xs mt-1 mb-0">
+                      {{ error }}
+                    </p>
                   {% endfor %}
                 </div>
               {% endif %}
 
               {% if form.password2 %}
                 <div class="mb-4">
-                  <label for="{{ form.password2.id_for_label }}" class="form-label">
+                  <label
+                    for="{{ form.password2.id_for_label }}"
+                    class="form-label"
+                  >
                     Password Confirmation
                   </label>
 
@@ -159,19 +273,34 @@
                   {% endif %}
 
                   {% for error in form.password2.errors %}
-                    <p class="text-danger text-xs mt-1 mb-0">{{ error }}</p>
+                    <p class="text-danger text-xs mt-1 mb-0">
+                      {{ error }}
+                    </p>
                   {% endfor %}
                 </div>
               {% endif %}
 
               <div class="d-flex justify-content-end">
                 {% if object %}
-                  <a href="{% url 'kitchen:cook-detail' pk=object.pk %}" class="btn btn-outline-secondary mb-0 me-2">Cancel</a>
+                  <a
+                    href="{% url 'kitchen:cook-detail' pk=object.pk %}"
+                    class="btn btn-outline-secondary mb-0 me-2"
+                  >
+                    Cancel
+                  </a>
                 {% else %}
-                  <a href="{% url 'kitchen:cook-list' %}" class="btn btn-outline-secondary mb-0 me-2">Cancel</a>
+                  <a
+                    href="{% url 'kitchen:cook-list' %}"
+                    class="btn btn-outline-secondary mb-0 me-2"
+                  >
+                    Cancel
+                  </a>
                 {% endif %}
 
-                <button type="submit" class="btn bg-gradient-primary mb-0">
+                <button
+                  type="submit"
+                  class="btn bg-gradient-primary mb-0"
+                >
                   {% if object %}
                     Update Cook
                   {% else %}

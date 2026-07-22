@@ -13,7 +13,19 @@
           <div class="card-header pb-0">
             <div class="d-flex align-items-center">
               <div>
-                <img src="{% static 'icons/cook.svg' %}" class="avatar avatar-lg me-3" alt="Cook">
+                {% if cook.photo %}
+                  <img
+                    src="{{ cook.photo.url }}"
+                    class="avatar avatar-lg me-3"
+                    alt="{{ cook.username }}"
+                  >
+                {% else %}
+                  <img
+                    src="{% static 'icons/cook.svg' %}"
+                    class="avatar avatar-lg me-3"
+                    alt="Cook"
+                  >
+                {% endif %}
               </div>
 
               <div>
@@ -101,9 +113,13 @@
                 </h6>
 
                 {% if cook.is_active %}
-                  <span class="badge badge-sm bg-gradient-success">Active</span>
+                  <span class="badge badge-sm bg-gradient-success">
+                    Active
+                  </span>
                 {% else %}
-                  <span class="badge badge-sm bg-gradient-secondary">Inactive</span>
+                  <span class="badge badge-sm bg-gradient-secondary">
+                    Inactive
+                  </span>
                 {% endif %}
               </div>
             </div>
@@ -116,12 +132,19 @@
               {% for dish in cook.dishes.all %}
                 <div class="d-flex align-items-center mb-3">
                   <div>
-                    <img src="{% static 'icons/dish.svg' %}" class="avatar avatar-sm me-3" alt="Dish">
+                    <img
+                      src="{% static 'icons/dish.svg' %}"
+                      class="avatar avatar-sm me-3"
+                      alt="Dish"
+                    >
                   </div>
 
                   <div class="d-flex flex-column justify-content-center">
                     <h6 class="mb-0 text-sm">
-                      <a href="{% url 'kitchen:dish-detail' pk=dish.pk %}" class="text-dark">
+                      <a
+                        href="{% url 'kitchen:dish-detail' pk=dish.pk %}"
+                        class="text-dark"
+                      >
                         {{ dish.name }}
                       </a>
                     </h6>
@@ -141,13 +164,27 @@
             <hr class="horizontal dark my-3">
 
             <div class="d-flex justify-content-between align-items-center">
-              <a href="{% url 'kitchen:cook-list' %}" class="btn btn-outline-secondary mb-0">
+              <a
+                href="{% url 'kitchen:cook-list' %}"
+                class="btn btn-outline-secondary mb-0"
+              >
                 Back to Cooks
               </a>
 
               <div>
-                <a href="{% url 'kitchen:cook-update' pk=cook.pk %}" class="btn bg-gradient-primary mb-0 me-2">Edit Cook</a>
-                <a href="{% url 'kitchen:cook-delete' pk=cook.pk %}" class="btn bg-gradient-danger mb-0">Delete Cook</a>
+                <a
+                  href="{% url 'kitchen:cook-update' pk=cook.pk %}"
+                  class="btn bg-gradient-primary mb-0 me-2"
+                >
+                  Edit Cook
+                </a>
+
+                <a
+                  href="{% url 'kitchen:cook-delete' pk=cook.pk %}"
+                  class="btn bg-gradient-danger mb-0"
+                >
+                  Delete Cook
+                </a>
               </div>
             </div>
           </div>
