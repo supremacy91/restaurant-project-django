@@ -72,6 +72,55 @@ class CookCreationForm(UserCreationForm):
             "email",
             "years_of_experience",
         )
+        widgets = {
+            "username": forms.TextInput(
+                attrs={
+                    "class": "form-control",
+                    "placeholder": "Enter username",
+                }
+            ),
+            "first_name": forms.TextInput(
+                attrs={
+                    "class": "form-control",
+                    "placeholder": "Enter first name",
+                }
+            ),
+            "last_name": forms.TextInput(
+                attrs={
+                    "class": "form-control",
+                    "placeholder": "Enter last name",
+                }
+            ),
+            "email": forms.EmailInput(
+                attrs={
+                    "class": "form-control",
+                    "placeholder": "Enter email address",
+                }
+            ),
+            "years_of_experience": forms.NumberInput(
+                attrs={
+                    "class": "form-control",
+                    "placeholder": "Enter years of experience",
+                    "min": 0,
+                }
+            ),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields["password1"].widget.attrs.update(
+            {
+                "class": "form-control",
+                "placeholder": "Enter password",
+            }
+        )
+        self.fields["password2"].widget.attrs.update(
+            {
+                "class": "form-control",
+                "placeholder": "Confirm password",
+            }
+        )
 
 
 class CookUpdateForm(forms.ModelForm):
@@ -84,5 +133,38 @@ class CookUpdateForm(forms.ModelForm):
             "email",
             "years_of_experience",
         )
+        widgets = {
+            "username": forms.TextInput(
+                attrs={
+                    "class": "form-control",
+                    "placeholder": "Enter username",
+                }
+            ),
+            "first_name": forms.TextInput(
+                attrs={
+                    "class": "form-control",
+                    "placeholder": "Enter first name",
+                }
+            ),
+            "last_name": forms.TextInput(
+                attrs={
+                    "class": "form-control",
+                    "placeholder": "Enter last name",
+                }
+            ),
+            "email": forms.EmailInput(
+                attrs={
+                    "class": "form-control",
+                    "placeholder": "Enter email address",
+                }
+            ),
+            "years_of_experience": forms.NumberInput(
+                attrs={
+                    "class": "form-control",
+                    "placeholder": "Enter years of experience",
+                    "min": 0,
+                }
+            ),
+        }
 
 

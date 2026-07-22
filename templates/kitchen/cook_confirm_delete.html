@@ -1,28 +1,62 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}
-  Delete cook
+  Delete Cook | KitchenHub
 {% endblock %}
 
 {% block content %}
-  <h1>Delete cook</h1>
+  <div class="container-fluid py-4">
+    <div class="row">
+      <div class="col-lg-6 col-md-8 mx-auto">
+        <div class="card mb-4">
+          <div class="card-header pb-0">
+            <div class="d-flex align-items-center">
+              <div>
+                <img src="{% static 'icons/cook.svg' %}" class="avatar avatar-sm me-3" alt="Cook">
+              </div>
 
-  <p>
-    Are you sure you want to delete
-    <strong>{{ object.username }}</strong>?
-  </p>
+              <div>
+                <h6 class="mb-0">Delete Cook</h6>
+                <p class="text-sm mb-0">Confirm deletion of a KitchenHub cook</p>
+              </div>
+            </div>
+          </div>
 
-  <form method="post">
-    {% csrf_token %}
+          <div class="card-body">
+            <div class="alert alert-danger text-white" role="alert">
+              <strong>Warning:</strong>
+              this action cannot be undone.
+            </div>
 
-    <button type="submit">
-      Yes, delete
-    </button>
-  </form>
+            <p class="text-sm mb-2">
+              Are you sure you want to delete the cook
+              <strong>{{ cook.username }}</strong>?
+            </p>
 
-  <p>
-    <a href="{% url 'kitchen:cook-detail' pk=object.pk %}">
-      Cancel
-    </a>
-  </p>
+            {% if cook.first_name or cook.last_name %}
+              <p class="text-sm text-secondary mb-2">
+                Full name: {{ cook.first_name }} {{ cook.last_name }}
+              </p>
+            {% endif %}
+
+            <p class="text-sm text-secondary mb-4">
+              This cook is currently assigned to
+              {{ cook.dishes.count }}
+              dish{{ cook.dishes.count|pluralize }}.
+            </p>
+
+            <form method="post">
+              {% csrf_token %}
+
+              <div class="d-flex justify-content-end">
+                <a href="{% url 'kitchen:cook-detail' pk=cook.pk %}" class="btn btn-outline-secondary mb-0 me-2">Cancel</a>
+                <button type="submit" class="btn bg-gradient-danger mb-0">Delete Cook</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock %}
