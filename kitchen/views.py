@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from kitchen.forms import CookCreationForm, CookUpdateForm, SearchForm
+from kitchen.forms import CookCreationForm, CookUpdateForm, DishForm, SearchForm
 from kitchen.models import Cook, Dish, DishType
 
 
@@ -83,12 +83,12 @@ class DishDetailView(LoginRequiredMixin, generic.DetailView):
 
 class DishCreateView(LoginRequiredMixin, generic.CreateView):
     model = Dish
-    fields = "__all__"
+    form_class = DishForm
 
 
 class DishUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Dish
-    fields = "__all__"
+    form_class = DishForm
 
 
 class DishDeleteView(LoginRequiredMixin, generic.DeleteView):

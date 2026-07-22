@@ -58,9 +58,3 @@ class Dish(models.Model):
             "kitchen:dish-detail",
             kwargs={"pk": self.pk},
         )
-
-    def get_absolute_url(self):
-        return reverse(
-            "kitchen:dish-detail",
-            kwargs={"pk": self.pk},
-        )

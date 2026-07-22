@@ -1,41 +1,125 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}
   {% if object %}
-    Update dish
+    Update Dish | KitchenHub
   {% else %}
-    Create dish
+    Create Dish | KitchenHub
   {% endif %}
 {% endblock %}
 
 {% block content %}
-  <h1>
-    {% if object %}
-      Update dish
-    {% else %}
-      Create dish
-    {% endif %}
-  </h1>
+  <div class="container-fluid py-4">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <div class="card mb-4">
+          <div class="card-header pb-0">
+            <div class="d-flex align-items-center">
+              <div>
+                <img src="{% static 'icons/dish.svg' %}" class="avatar avatar-sm me-3" alt="Dish">
+              </div>
 
-  <form method="post">
-    {% csrf_token %}
+              <div>
+                <h6 class="mb-0">
+                  {% if object %}
+                    Update Dish
+                  {% else %}
+                    Create Dish
+                  {% endif %}
+                </h6>
 
-    {{ form.as_p }}
+                <p class="text-sm mb-0">
+                  {% if object %}
+                    Update the information about {{ object.name }}
+                  {% else %}
+                    Add a new dish to the restaurant menu
+                  {% endif %}
+                </p>
+              </div>
+            </div>
+          </div>
 
-    <button type="submit">
-      Save
-    </button>
-  </form>
+          <div class="card-body">
+            <form method="post" novalidate>
+              {% csrf_token %}
 
-  <p>
-    {% if object %}
-      <a href="{% url 'kitchen:dish-detail' pk=object.pk %}">
-        Cancel
-      </a>
-    {% else %}
-      <a href="{% url 'kitchen:dish-list' %}">
-        Cancel
-      </a>
-    {% endif %}
-  </p>
+              {% if form.non_field_errors %}
+                <div class="alert alert-danger text-white" role="alert">
+                  {% for error in form.non_field_errors %}
+                    <p class="mb-0">{{ error }}</p>
+                  {% endfor %}
+                </div>
+              {% endif %}
+
+              <div class="mb-3">
+                <label for="{{ form.name.id_for_label }}" class="form-label">Name</label>
+                {{ form.name }}
+
+                {% for error in form.name.errors %}
+                  <p class="text-danger text-xs mt-1 mb-0">{{ error }}</p>
+                {% endfor %}
+              </div>
+
+              <div class="mb-3">
+                <label for="{{ form.description.id_for_label }}" class="form-label">Description</label>
+                {{ form.description }}
+
+                {% for error in form.description.errors %}
+                  <p class="text-danger text-xs mt-1 mb-0">{{ error }}</p>
+                {% endfor %}
+              </div>
+
+              <div class="mb-3">
+                <label for="{{ form.price.id_for_label }}" class="form-label">Price</label>
+                {{ form.price }}
+
+                {% for error in form.price.errors %}
+                  <p class="text-danger text-xs mt-1 mb-0">{{ error }}</p>
+                {% endfor %}
+              </div>
+
+              <div class="mb-3">
+                <label for="{{ form.dish_type.id_for_label }}" class="form-label">Dish Type</label>
+                {{ form.dish_type }}
+
+                {% for error in form.dish_type.errors %}
+                  <p class="text-danger text-xs mt-1 mb-0">{{ error }}</p>
+                {% endfor %}
+              </div>
+
+              <div class="mb-4">
+                <label for="{{ form.cooks.id_for_label }}" class="form-label">Cooks</label>
+                {{ form.cooks }}
+
+                {% if form.cooks.help_text %}
+                  <p class="text-xs text-secondary mt-1 mb-0">{{ form.cooks.help_text }}</p>
+                {% endif %}
+
+                {% for error in form.cooks.errors %}
+                  <p class="text-danger text-xs mt-1 mb-0">{{ error }}</p>
+                {% endfor %}
+              </div>
+
+              <div class="d-flex justify-content-end">
+                {% if object %}
+                  <a href="{% url 'kitchen:dish-detail' pk=object.pk %}" class="btn btn-outline-secondary mb-0 me-2">Cancel</a>
+                {% else %}
+                  <a href="{% url 'kitchen:dish-list' %}" class="btn btn-outline-secondary mb-0 me-2">Cancel</a>
+                {% endif %}
+
+                <button type="submit" class="btn bg-gradient-primary mb-0">
+                  {% if object %}
+                    Update Dish
+                  {% else %}
+                    Create Dish
+                  {% endif %}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock %}
