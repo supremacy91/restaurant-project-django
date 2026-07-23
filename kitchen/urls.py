@@ -1,6 +1,7 @@
 from django.urls import path
 
 from kitchen.views import (
+    DashboardView,
     CookCreateView,
     CookDeleteView,
     CookDetailView,
@@ -22,7 +23,7 @@ app_name = "kitchen"
 urlpatterns = [
     path(
         "",
-        DishListView.as_view(),
+        DashboardView.as_view(),
         name="index",
     ),
     path(
