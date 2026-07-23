@@ -32,7 +32,7 @@
                   <tr>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Dish Type</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Category</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Dishes</th>
                     <th class="text-secondary opacity-7"></th>
                   </tr>
                 </thead>
@@ -43,12 +43,21 @@
                       <td>
                         <div class="d-flex px-2 py-1">
                           <div>
-                            <img src="{% static 'icons/dish-type.svg' %}" class="avatar avatar-sm me-3" alt="Dish type">
+                            <a href="{% url 'kitchen:dish-list' %}?type={{ dish_type.pk }}">
+                              <img src="{% static 'icons/dish-type.svg' %}" class="avatar avatar-sm me-3" alt="Dish type">
+                            </a>
                           </div>
 
                           <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm">{{ dish_type.name }}</h6>
-                            <p class="text-xs text-secondary mb-0">KitchenHub dish type</p>
+                            <h6 class="mb-0 text-sm">
+                              <a href="{% url 'kitchen:dish-list' %}?type={{ dish_type.pk }}" class="text-dark">
+                                {{ dish_type.name }}
+                              </a>
+                            </h6>
+
+                            <p class="text-xs text-secondary mb-0">
+                              KitchenHub dish type
+                            </p>
                           </div>
                         </div>
                       </td>
@@ -59,7 +68,11 @@
                       </td>
 
                       <td class="align-middle text-center text-sm">
-                        <span class="badge badge-sm bg-gradient-success">Active</span>
+                        <a href="{% url 'kitchen:dish-list' %}?type={{ dish_type.pk }}">
+                          <span class="badge badge-sm bg-gradient-info">
+                            {{ dish_type.dish_count }}
+                          </span>
+                        </a>
                       </td>
 
                       <td class="align-middle">

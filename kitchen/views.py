@@ -57,13 +57,6 @@ class SearchMixin:
 
         return queryset
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        context["search_form"] = self.search_form
-
-        return context
-
 
 class DishTypeListView(
     LoginRequiredMixin,
@@ -73,6 +66,13 @@ class DishTypeListView(
     model = DishType
     paginate_by = 5
     search_field = "name"
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+
+        return queryset.annotate(
+            dish_count=Count("dishes"),
+        )
 
 
 class DishTypeCreateView(
