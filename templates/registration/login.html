@@ -1,35 +1,198 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}
-  Login
+  Login | KitchenHub
 {% endblock %}
 
 {% block content %}
   {% if user.is_authenticated %}
+    <div class="container-fluid py-4">
+      <div class="row justify-content-center">
+        <div class="col-xl-4 col-lg-5 col-md-7">
+          <div class="card border-0 shadow-lg">
+            <div class="card-header text-center bg-gradient-primary pt-5 pb-5">
+              <div class="icon icon-shape icon-xl bg-white shadow text-center border-radius-xl mx-auto mb-3">
+                <img
+                  src="{% static 'icons/cook.svg' %}"
+                  class="avatar avatar-lg"
+                  alt="Cook"
+                >
+              </div>
 
-    <h2>You are already logged in as {{ user.username }}</h2>
+              <h4 class="text-white mb-1">
+                Welcome, {{ user.username }}
+              </h4>
+
+              <p class="text-white text-sm opacity-8 mb-0">
+                You are already signed in
+              </p>
+            </div>
+
+            <div class="card-body text-center px-4 py-5">
+              <p class="text-secondary mb-4">
+                Continue to your KitchenHub dashboard to manage dishes,
+                categories and cooks.
+              </p>
+
+              <a
+                href="{% url 'kitchen:index' %}"
+                class="btn bg-gradient-primary w-100 mb-0"
+              >
+                Go to Dashboard
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
   {% else %}
+    <div class="container-fluid py-4">
+      <div class="row justify-content-center align-items-center min-vh-75">
+        <div class="col-xl-4 col-lg-5 col-md-7">
+          <div class="card border-0 shadow-lg">
+            <div class="card-header text-center bg-gradient-primary pt-5 pb-5">
+              <div class="icon icon-shape icon-xl bg-white shadow text-center border-radius-xl mx-auto mb-3">
+                <img
+                  src="{% static 'icons/cook.svg' %}"
+                  class="avatar avatar-lg"
+                  alt="KitchenHub"
+                >
+              </div>
 
-    <h1>Login</h1>
+              <h3 class="text-white mb-1">
+                KitchenHub
+              </h3>
 
-    {% if form.errors %}
-      <p>Username or password is incorrect.</p>
-    {% endif %}
+              <p class="text-white text-sm opacity-8 mb-0">
+                Sign in to continue
+              </p>
+            </div>
 
-    <form method="post">
-      {% csrf_token %}
+            <div class="card-body px-lg-5 px-4 py-5">
+              {% if form.errors %}
+                <div
+                  class="alert alert-danger text-white text-sm"
+                  role="alert"
+                >
+                  <strong>Login failed.</strong>
+                  Please check your username and password.
+                </div>
+              {% endif %}
 
-      {{ form.as_p }}
+              {% if next and user.is_authenticated %}
+                <div
+                  class="alert alert-warning text-white text-sm"
+                  role="alert"
+                >
+                  Your account does not have access to this page.
+                </div>
+              {% elif next %}
+                <div
+                  class="alert alert-info text-white text-sm"
+                  role="alert"
+                >
+                  Please sign in to continue.
+                </div>
+              {% endif %}
 
-      <button type="submit">
-        Login
-      </button>
+              <form method="post">
+                {% csrf_token %}
 
-      {% if next %}
-        <input type="hidden" name="next" value="{{ next }}">
-      {% endif %}
-    </form>
+                <div class="mb-3">
+                  <label
+                    for="id_username"
+                    class="form-label text-sm font-weight-bold"
+                  >
+                    Username
+                  </label>
 
+                  <div class="input-group">
+                    <span class="input-group-text">
+                      <i class="fas fa-user"></i>
+                    </span>
+
+                    <input
+                      type="text"
+                      name="username"
+                      value="{{ form.username.value|default_if_none:'' }}"
+                      class="form-control"
+                      id="id_username"
+                      placeholder="Enter your username"
+                      autocomplete="username"
+                      autofocus
+                      required
+                    >
+                  </div>
+
+                  {% for error in form.username.errors %}
+                    <p class="text-danger text-xs mt-2 mb-0">
+                      {{ error }}
+                    </p>
+                  {% endfor %}
+                </div>
+
+                <div class="mb-4">
+                  <label
+                    for="id_password"
+                    class="form-label text-sm font-weight-bold"
+                  >
+                    Password
+                  </label>
+
+                  <div class="input-group">
+                    <span class="input-group-text">
+                      <i class="fas fa-lock"></i>
+                    </span>
+
+                    <input
+                      type="password"
+                      name="password"
+                      class="form-control"
+                      id="id_password"
+                      placeholder="Enter your password"
+                      autocomplete="current-password"
+                      required
+                    >
+                  </div>
+
+                  {% for error in form.password.errors %}
+                    <p class="text-danger text-xs mt-2 mb-0">
+                      {{ error }}
+                    </p>
+                  {% endfor %}
+                </div>
+
+                {% if next %}
+                  <input
+                    type="hidden"
+                    name="next"
+                    value="{{ next }}"
+                  >
+                {% endif %}
+
+                <button
+                  type="submit"
+                  class="btn bg-gradient-primary w-100 py-3 mb-3"
+                >
+                  Sign In
+                </button>
+
+                <div class="text-center">
+                  <p class="text-sm text-secondary mb-0">
+                    Restaurant management made simple
+                  </p>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <p class="text-center text-sm text-secondary mt-4 mb-0">
+            © {% now "Y" %} KitchenHub
+          </p>
+        </div>
+      </div>
+    </div>
   {% endif %}
 {% endblock %}
