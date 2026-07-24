@@ -6,6 +6,11 @@ from django.urls import reverse
 class DishType(models.Model):
     name = models.CharField(max_length=255, unique=True)
 
+    image = models.ImageField(
+        upload_to="dish_types/",
+        blank=True,
+    )
+
     class Meta:
         ordering = ["name"]
 
