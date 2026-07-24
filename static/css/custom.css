@@ -1,3 +1,19 @@
 #sidenav-collapse-main {
     overflow-x: hidden;
 }
+
+body {
+  background: url("../images/backgrounds/kitchenhub_background2.jpeg") center center / cover fixed no-repeat;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(245, 247, 250, 0.72);
+  z-index: -1;
+}
+
+.main-content {
+  background: transparent !important;
+}
