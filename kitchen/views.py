@@ -121,20 +121,6 @@ class DishListView(
 
         return queryset
 
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #
-    #     dish_type_id = self.request.GET.get("type")
-    #
-    #     context["selected_dish_type"] = None
-    #
-    #     if dish_type_id:
-    #         context["selected_dish_type"] = DishType.objects.filter(
-    #             pk=dish_type_id,
-    #         ).first()
-    #
-    #     return context
-
 
 class DishDetailView(
     LoginRequiredMixin,
