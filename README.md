@@ -1,5 +1,8 @@
 # KitchenHub
 
+https://restaurant-project-django-v2f6.onrender.com/
+credentials: chef / chef1991
+
 Restaurant management system built with Django and Soft UI Dashboard.
 
 KitchenHub allows administrators to manage dishes, dish categories and cooks through a modern and responsive web interface.
